@@ -720,7 +720,7 @@ func (remote *RemoteDebugger) NewTab(url string) (*Tab, error) {
 	if err = remote.connectWs(&tab); err != nil {
 		return nil, err
 	}
-
+	hasPermanentError = false
 	return &tab, nil
 }
 
