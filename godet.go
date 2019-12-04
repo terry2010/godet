@@ -772,6 +772,16 @@ func (remote *RemoteDebugger) Reload() error {
 	return err
 }
 
+func (remote *RemoteDebugger) ResetNavigationHistory() error {
+	params := Params{}
+	_, err := remote.SendRequest("Page.resetNavigationHistory", params)
+	if err != nil {
+		return err
+	} else {
+		return nil
+	}
+}
+
 // GetNavigationHistory returns navigation history for the current page.
 func (remote *RemoteDebugger) GetNavigationHistory() (int, []NavigationEntry, error) {
 	rawReply, err := remote.sendRawReplyRequest("Page.getNavigationHistory", nil)
@@ -1016,7 +1026,7 @@ type Cookie struct {
 	SameSite string  `json:"sameSite"`
 }
 
-func (remote *RemoteDebugger) SetCookies(cookies []Cookie)error {
+func (remote *RemoteDebugger) SetCookies(cookies []Cookie) error {
 	params := Params{}
 	if len(cookies) < 1 {
 		return errors.New("empty cookies")
