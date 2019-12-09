@@ -491,13 +491,14 @@ func (remote *RemoteDebugger) sendMessages() {
 		}
 
 		err := ws.WriteJSON(message)
-
-		if err != nil {
-			log.Println("GODET-SEND-FAIL %#v\n", err, string(ec))
-			log.Println("write message:", err)
-		} else {
-			log.Println("GODET-SEND-SUCCESS:", err, string(ec))
-			log.Println("write message success:", err)
+		if remote.verbose {
+			if err != nil {
+				log.Println("GODET-SEND-FAIL %#v\n", err, string(ec))
+				log.Println("write message:", err)
+			} else {
+				log.Println("GODET-SEND-SUCCESS:", err, string(ec))
+				log.Println("write message success:", err)
+			}
 		}
 	}
 }
