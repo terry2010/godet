@@ -282,6 +282,7 @@ func Connect(port string, verbose bool, options ...ConnectOption) (*RemoteDebugg
 	if err := remote.connectWs(nil); err != nil {
 		return nil, err
 	}
+	hasPermanentError = false
 
 	go remote.sendMessages()
 	go remote.processEvents()
@@ -606,6 +607,7 @@ func (remote *RemoteDebugger) processEvents() {
 
 		remote.Lock()
 		cb := remote.callbacks[ev.Method]
+		log.Println("EVENT:",ev.Method,string(ev.Params))
 		remote.Unlock()
 
 		if cb != nil {
