@@ -607,7 +607,7 @@ func (remote *RemoteDebugger) processEvents() {
 
 		remote.Lock()
 		cb := remote.callbacks[ev.Method]
-		log.Println("EVENT:",ev.Method,string(ev.Params))
+		//log.Println("EVENT:",ev.Method,string(ev.Params))
 		remote.Unlock()
 
 		if cb != nil {
