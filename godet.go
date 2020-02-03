@@ -607,7 +607,11 @@ func (remote *RemoteDebugger) processEvents() {
 
 		remote.Lock()
 		cb := remote.callbacks[ev.Method]
-		log.Println("PRECESS-EVENT:",ev.Method,string(ev.Params))
+		if remote.verbose {
+			log.Println("GODET-PRECESS-EVENT:",ev.Method,string(ev.Params))
+		}else {
+			log.Println("GODET-PRECESS-EVENT:",ev.Method)
+		}
 		remote.Unlock()
 
 		if cb != nil {
